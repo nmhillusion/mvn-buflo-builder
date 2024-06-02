@@ -1,8 +1,7 @@
 package tech.nmhillusion.local_dependency_builder.runner
 
-import java.io.File
-import java.io.InputStream
-import java.util.*
+import tech.nmhillusion.n2mix.helper.log.LogHelper
+import java.io.*
 
 
 /**
@@ -26,13 +25,13 @@ class CommandRunner(private val command: List<String>, private val workingDirect
         val stdOutThread = Thread {
             readStream(
                 process.inputStream,
-                "stdout"
+                "[INFO]"
             )
         }
         val stdErrThread = Thread {
             readStream(
                 process.errorStream,
-                "stderr"
+                "[ERROR]"
             )
         }
 
@@ -45,11 +44,15 @@ class CommandRunner(private val command: List<String>, private val workingDirect
     }
 
     private fun readStream(stream: InputStream, type: String) {
-        Scanner(stream).use { scanner ->
-            while (scanner.hasNextLine()) {
-                val line = scanner.nextLine()
-                println("$type: $line")
+        try {
+            BufferedReader(InputStreamReader(stream)).use { reader ->
+                var line: String
+                while ((reader.readLine().also { line = it }) != null) {
+                    println("$type: $line")
+                }
             }
+        } catch (e: IOException) {
+            LogHelper.getLogger(this).error("Error reading $type".toString() + " stream: " + e.message)
         }
     }
 }
