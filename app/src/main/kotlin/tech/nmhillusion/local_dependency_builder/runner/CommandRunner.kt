@@ -8,18 +8,24 @@ import tech.nmhillusion.n2mix.helper.log.LogHelper
  * <p>
  * created date: 2024-06-02
  */
-class CommandRunner(val command: List<String>) {
+class CommandRunner(private val command: List<String>) {
     fun exec(): Int {
         val builder = ProcessBuilder(command)
         builder.environment()["PATH"] = System.getenv("PATH")
         val process: Process = builder.start()
 
         process.inputStream.use {
-            LogHelper.getLogger(this).info(it.readBytes().toString(Charsets.UTF_8))
+            val readStream_ = it.readBytes()
+            if (readStream_.isNotEmpty()) {
+                LogHelper.getLogger(this).info(readStream_.toString(Charsets.UTF_8))
+            }
         }
 
         process.errorStream.use {
-            LogHelper.getLogger(this).error(it.readBytes().toString(Charsets.UTF_8))
+            val errorBytes = it.readBytes()
+            if (errorBytes.isNotEmpty()) {
+                LogHelper.getLogger(this).error(errorBytes.toString(Charsets.UTF_8))
+            }
         }
 
         return process.waitFor()
