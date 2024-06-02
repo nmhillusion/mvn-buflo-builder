@@ -10,4 +10,13 @@ class MavenHelper {
 
     val versionCommand: List<String>
         get() = listOf(mvnCommand, "-v")
+
+    val cleanCommand: List<String>
+        get() = listOf(mvnCommand, "clean")
+
+    val compileCommand: List<String>
+        get() = listOf(mvnCommand, "compile")
+
+    val installCommand: List<String>
+        get() = listOf(mvnCommand, "install")
 }

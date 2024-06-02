@@ -4,12 +4,16 @@
 package tech.nmhillusion.local_dependency_builder
 
 import tech.nmhillusion.local_dependency_builder.builder.FolderBuilder
+import tech.nmhillusion.local_dependency_builder.helper.GitHelper
+import tech.nmhillusion.local_dependency_builder.helper.MavenHelper
 import tech.nmhillusion.local_dependency_builder.model.DependencyEntity
 import tech.nmhillusion.local_dependency_builder.model.LocalBuilderConfig
+import tech.nmhillusion.local_dependency_builder.runner.CommandRunner
 import tech.nmhillusion.n2mix.helper.YamlReader
 import tech.nmhillusion.n2mix.helper.log.LogHelper
 import java.nio.file.Files
 import java.nio.file.Path
+import kotlin.io.path.exists
 
 class App(private val configPath: String) {
     private val dependencies = ArrayList<DependencyEntity>()
@@ -54,5 +58,65 @@ class App(private val configPath: String) {
         )
 
         LogHelper.getLogger(this).info("createdTempFolder: $createdTempFolder")
+
+        buildDependency()
+    }
+
+    private fun buildDependency() {
+        val testDep = DependencyEntity(
+            "https://github.com/nmhillusion/neon-di.git",
+            "."
+        )
+
+        val localRepoPath = Path.of(localBuilderConfig.tempRepoPath, testDep.name)
+        LogHelper.getLogger(this).info("localRepoPath: $localRepoPath")
+
+        if (localRepoPath.exists()) {
+            LogHelper.getLogger(this).info("Deleting existing localRepoPath: $localRepoPath")
+            localRepoPath.toFile().deleteRecursively()
+        }
+
+        val cloneCommand = GitHelper().cloneRepository(
+            testDep,
+            localBuilderConfig.tempRepoPath
+        )
+
+        val commandRunner = CommandRunner(cloneCommand)
+        val cloneExitCode = commandRunner.exec()
+
+        LogHelper.getLogger(this).info("cloneExitCode: $cloneExitCode")
+
+        if (0 != cloneExitCode) {
+            throw Exception("Failed to clone repository")
+        }
+
+        val mvnCleanCmd = MavenHelper().cleanCommand
+        val mvnCompileCmd = MavenHelper().compileCommand
+        val mvnInstallCmd = MavenHelper().installCommand
+
+        val mvnCleanCommandRunner = CommandRunner(mvnCleanCmd, localRepoPath.toFile())
+        val mvnCompileCommandRunner = CommandRunner(mvnCompileCmd, localRepoPath.toFile())
+        val mvnInstallCommandRunner = CommandRunner(mvnInstallCmd, localRepoPath.toFile())
+
+        val mvnCleanExitCode = mvnCleanCommandRunner.exec()
+        LogHelper.getLogger(this).info("mvnCleanExitCode: $mvnCleanExitCode")
+
+        if (0 != mvnCleanExitCode) {
+            throw Exception("Failed to clean repository")
+        }
+
+        val mvnCompileExitCode = mvnCompileCommandRunner.exec()
+        LogHelper.getLogger(this).info("mvnCompileExitCode: $mvnCompileExitCode")
+
+        if (0 != mvnCompileExitCode) {
+            throw Exception("Failed to compile repository")
+        }
+
+        val mvnInstallExitCode = mvnInstallCommandRunner.exec()
+        LogHelper.getLogger(this).info("mvnInstallExitCode: $mvnInstallExitCode")
+
+        if (0 != mvnInstallExitCode) {
+            throw Exception("Failed to install repository")
+        }
     }
 }

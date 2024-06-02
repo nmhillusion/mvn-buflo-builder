@@ -1,6 +1,7 @@
 package tech.nmhillusion.local_dependency_builder.runner
 
 import tech.nmhillusion.n2mix.helper.log.LogHelper
+import java.io.File
 
 
 /**
@@ -8,10 +9,16 @@ import tech.nmhillusion.n2mix.helper.log.LogHelper
  * <p>
  * created date: 2024-06-02
  */
-class CommandRunner(private val command: List<String>) {
+class CommandRunner(private val command: List<String>, private val workingDirectory: File? = null) {
     fun exec(): Int {
         val builder = ProcessBuilder(command)
         builder.environment()["PATH"] = System.getenv("PATH")
+
+        if (null != this.workingDirectory) {
+            builder.directory(this.workingDirectory)
+        }
+
+        builder.redirectErrorStream(true)
         val process: Process = builder.start()
 
         process.inputStream.use {
