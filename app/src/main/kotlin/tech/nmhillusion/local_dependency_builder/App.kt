@@ -27,7 +27,7 @@ class App(private val configPath: String) {
         }
     }
 
-    fun loadAppConfig() {
+    private fun loadAppConfig() {
         this.localBuilderConfig = getConfig("config", Map::class.java).let {
             LocalBuilderConfig.fromMap(it)
         }

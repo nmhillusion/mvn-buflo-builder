@@ -1,0 +1,10 @@
+config:
+  tempRepoPath: temp
+  deleteAfterRun: true
+
+dependencies:
+  - url: https://github.com/nmhillusion/neon-di.git
+    rootPath: .
+
+  - url: https://github.com/nmhillusion/pi-logger.git
+    rootPath: .
