@@ -9,7 +9,7 @@ import kotlin.test.assertNotNull
 class AppTest {
     @Test
     fun appHasAName() {
-        val classUnderTest = App()
+        val classUnderTest = App(listOf("config.yml").joinToString())
         assertNotNull(classUnderTest.name, "app should have a name")
     }
 }

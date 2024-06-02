@@ -37,7 +37,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "tech.nmhillusion.local_dependency_builder.AppKt"
+    mainClass = "tech.nmhillusion.local_dependency_builder.MainKt"
 }
 
 tasks.named<Test>("test") {
