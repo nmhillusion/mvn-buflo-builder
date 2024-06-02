@@ -10,12 +10,12 @@ import java.nio.file.Path
  * created date: 2024-06-03
  */
 class MavenCommandRunner(
-    private val dependencyEntity: DependencyEntity,
-    private val workingFolder: String?
+    dependencyEntity: DependencyEntity,
+    workingFolder: String?
 ) {
 
     private val mavenCommand = MavenCommand()
-    private val localRepoPath = Path.of(workingFolder ?: "", dependencyEntity.name)
+    private val localRepoPath = Path.of(workingFolder ?: "", dependencyEntity.name, dependencyEntity.rootPath)
 
     fun cleanExec(): Int {
         val commandRunner = CommandRunner(
