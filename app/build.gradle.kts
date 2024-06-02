@@ -24,7 +24,19 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
-    implementation("com.github.nmhillusion:n2mix-java:2024.5.6")
+    implementation("com.github.nmhillusion:n2mix-java:2024.5.6") {
+        exclude(group = "org.springframework", module = "*")
+        exclude(group = "com.zaxxer", module = "*")
+        exclude(group = "jakarta.servlet", module = "*")
+        exclude(group = "com.fasterxml.jackson.core", module = "*")
+        exclude(group = "org.hibernate.orm", module = "*")
+        exclude(group = "com.google.firebase", module = "*")
+        exclude(group = "org.ehcache", module = "*")
+        exclude(group = "com.squareup.okhttp3", module = "*")
+        exclude(group = "org.apache.poi", module = "*")
+        exclude(group = "com.oracle.database.jdbc", module = "*")
+        exclude(group = "org.apache.pdfbox", module = "*")
+    }
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
