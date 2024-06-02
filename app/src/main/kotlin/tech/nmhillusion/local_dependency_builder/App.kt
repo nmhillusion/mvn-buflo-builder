@@ -59,16 +59,14 @@ class App(private val configPath: String) {
 
         LogHelper.getLogger(this).info("createdTempFolder: $createdTempFolder")
 
-        buildDependency()
+        dependencies.forEach {
+            buildDependency(it)
+            LogHelper.getLogger(this).info(">>> Successfully build dependency: ${it.name} <<<")
+        }
     }
 
-    private fun buildDependency() {
-        val testDep = DependencyEntity(
-            "https://github.com/nmhillusion/neon-di.git",
-            "."
-        )
-
-        val localRepoPath = Path.of(localBuilderConfig.tempRepoPath, testDep.name)
+    private fun buildDependency(dependency_: DependencyEntity) {
+        val localRepoPath = Path.of(localBuilderConfig.tempRepoPath, dependency_.name)
         LogHelper.getLogger(this).info("localRepoPath: $localRepoPath")
 
         if (localRepoPath.exists()) {
@@ -77,7 +75,7 @@ class App(private val configPath: String) {
         }
 
         val cloneCommand = GitHelper().cloneRepository(
-            testDep,
+            dependency_,
             localBuilderConfig.tempRepoPath
         )
 
