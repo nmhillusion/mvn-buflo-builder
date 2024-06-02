@@ -1,7 +1,8 @@
 package tech.nmhillusion.local_dependency_builder.runner
 
-import tech.nmhillusion.n2mix.helper.log.LogHelper
 import java.io.File
+import java.io.InputStream
+import java.util.*
 
 
 /**
@@ -18,23 +19,37 @@ class CommandRunner(private val command: List<String>, private val workingDirect
             builder.directory(this.workingDirectory)
         }
 
-        builder.redirectErrorStream(true)
         val process: Process = builder.start()
 
-        process.inputStream.use {
-            val readStream_ = it.readBytes()
-            if (readStream_.isNotEmpty()) {
-                LogHelper.getLogger(this).info(readStream_.toString(Charsets.UTF_8))
-            }
+
+        // Create threads to read STDOUT and STDERR
+        val stdOutThread = Thread {
+            readStream(
+                process.inputStream,
+                "stdout"
+            )
+        }
+        val stdErrThread = Thread {
+            readStream(
+                process.errorStream,
+                "stderr"
+            )
         }
 
-        process.errorStream.use {
-            val errorBytes = it.readBytes()
-            if (errorBytes.isNotEmpty()) {
-                LogHelper.getLogger(this).error(errorBytes.toString(Charsets.UTF_8))
-            }
-        }
+
+        // Start the threads
+        stdOutThread.start()
+        stdErrThread.start()
 
         return process.waitFor()
+    }
+
+    private fun readStream(stream: InputStream, type: String) {
+        Scanner(stream).use { scanner ->
+            while (scanner.hasNextLine()) {
+                val line = scanner.nextLine()
+                println("$type: $line")
+            }
+        }
     }
 }

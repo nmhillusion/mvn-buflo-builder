@@ -1,4 +1,4 @@
-package tech.nmhillusion.local_dependency_builder.helper
+package tech.nmhillusion.local_dependency_builder.command
 
 import tech.nmhillusion.local_dependency_builder.model.DependencyEntity
 import java.nio.file.Path
@@ -8,7 +8,7 @@ import java.nio.file.Path
  * <p>
  * created date: 2024-06-02
  */
-class GitHelper {
+class GitCommand {
     private val gitCommand = "git"
 
     val versionCommand: List<String>

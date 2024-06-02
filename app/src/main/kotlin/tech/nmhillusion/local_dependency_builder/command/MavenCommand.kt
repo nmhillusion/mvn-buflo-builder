@@ -1,11 +1,13 @@
-package tech.nmhillusion.local_dependency_builder.helper
+package tech.nmhillusion.local_dependency_builder.command
+
+import tech.nmhillusion.local_dependency_builder.helper.SystemHelper
 
 /**
  * created by: nmhillusion
  * <p>
  * created date: 2024-06-02
  */
-class MavenHelper {
+class MavenCommand {
     private val mvnCommand = if (SystemHelper.isWindows()) "mvn.cmd" else "mvn"
 
     val versionCommand: List<String>
