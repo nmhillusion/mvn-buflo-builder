@@ -13,7 +13,7 @@ import tech.nmhillusion.local_dependency_builder.runner.CommandRunner
 abstract class EnvironmentValidator {
 
     companion object {
-        fun validateMvnCommand() {
+        fun validateRequiredCommand() {
             val mvnVersionCommand = MavenCommand().versionCommand
             val mvnExitCode = CommandRunner(mvnVersionCommand).exec()
 

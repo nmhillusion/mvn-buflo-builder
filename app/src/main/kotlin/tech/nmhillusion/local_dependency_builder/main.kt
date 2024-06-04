@@ -16,7 +16,7 @@ fun main(args: Array<String>) {
     val parameters = parameterParser.parse()
     LogHelper.getLogger(App::class).info("Arguments: $parameters")
 
-    EnvironmentValidator.validateMvnCommand()
+    EnvironmentValidator.validateRequiredCommand()
 
     val configPath = parameters["configPath"]
 
