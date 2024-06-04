@@ -7,6 +7,7 @@ import tech.nmhillusion.local_dependency_builder.runner.GitCommandRunner
 import tech.nmhillusion.local_dependency_builder.runner.MavenCommandRunner
 import tech.nmhillusion.n2mix.helper.YamlReader
 import tech.nmhillusion.n2mix.helper.log.LogHelper
+import tech.nmhillusion.n2mix.model.ResultResponseEntity
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.exists
@@ -55,9 +56,40 @@ class App(private val configPath: String) {
 
         LogHelper.getLogger(this).info("createdTempFolder: $createdTempFolder")
 
+        val installResult = ArrayList<ResultResponseEntity<DependencyEntity>>(dependencies.size)
         dependencies.forEach {
-            buildDependency(it)
-            LogHelper.getLogger(this).info(">>> Successfully build dependency: ${it.name} <<<")
+            try {
+                buildDependency(it)
+                LogHelper.getLogger(this).info(">>> Successfully build dependency: ${it.name} <<<")
+
+                installResult.add(
+                    ResultResponseEntity<DependencyEntity>()
+                        .setSuccess(true)
+                        .setData(it)
+                )
+            } catch (ex: Exception) {
+                LogHelper.getLogger(this).error("!!! Failed to build dependency: ${it.name} : ${ex.message}")
+                installResult.add(
+                    ResultResponseEntity<DependencyEntity>()
+                        .setSuccess(false)
+                        .setMessage(ex.message)
+                        .setData(it)
+                )
+            }
+        }
+
+        /// Mark: POST EXEC
+        println("[DEPENDENCY INSTALL RESULT]")
+        installResult.forEach {
+            println(
+                """
+                |===================================|
+                |dependency: ${it.data?.name}
+                |success : ${it.success}
+                |message : ${it.message}
+                |===================================|
+            """.trimMargin()
+            )
         }
     }
 
