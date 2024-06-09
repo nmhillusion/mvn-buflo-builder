@@ -90,6 +90,7 @@ class BuilderFlow : BaseFlow() {
         val installResult = ArrayList<ResultResponseEntity<DependencyEntity>>(dependencies.size)
         dependencies.forEach {
             try {
+                LogHelper.getLogger(this).info(">>> Building dependency: ${it.name} <<<")
                 buildDependency(it)
                 LogHelper.getLogger(this).info(">>> Successfully build dependency: ${it.name} <<<")
 
@@ -136,9 +137,14 @@ class BuilderFlow : BaseFlow() {
 
         /// Mark: GIT
         val gitCommandRunner = GitCommandRunner(dependency_, localBuilderConfig.tempRepoPath)
-        val cloneExitCode = gitCommandRunner.cloneExec()
 
+        val cloneExitCode = gitCommandRunner.cloneExec()
         LogHelper.getLogger(this).info("cloneExitCode: $cloneExitCode")
+
+        if (dependency_.isNeedCheckout) {
+            val checkoutExitCode = gitCommandRunner.checkoutExec()
+            LogHelper.getLogger(this).info("checkoutExitCode: $checkoutExitCode")
+        }
 
         if (0 != cloneExitCode) {
             throw Exception("Failed to clone repository")

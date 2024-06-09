@@ -21,4 +21,12 @@ class GitCommandRunner(
         )
         return commandRunner.exec()
     }
+
+    fun checkoutExec(): Int {
+        val commandRunner = CommandRunner(
+            command = gitCommand.checkoutCommand(dependencyEntity)
+        )
+        return commandRunner.exec()
+
+    }
 }

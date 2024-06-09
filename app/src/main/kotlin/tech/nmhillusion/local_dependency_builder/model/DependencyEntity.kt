@@ -12,6 +12,9 @@ data class DependencyEntity(val url: String, val branch: String?, val tag: Strin
     val name: String
         get() = url.split("/").last().replace(".git", "")
 
+    val isNeedCheckout: Boolean
+        get() = null != branch || null != tag
+
     companion object {
         fun fromMap(data: Map<*, *>): DependencyEntity {
             val baseUrl = StringUtil.trimWithNull(data["url"])
