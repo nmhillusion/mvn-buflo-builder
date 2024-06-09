@@ -24,7 +24,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
-    implementation("com.github.nmhillusion:n2mix-java:2024.5.6") {
+    implementation("com.github.nmhillusion:n2mix-java:2024.6.0") {
         exclude(group = "org.springframework", module = "*")
         exclude(group = "com.zaxxer", module = "*")
         exclude(group = "jakarta.servlet", module = "*")
