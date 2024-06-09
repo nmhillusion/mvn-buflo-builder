@@ -1,4 +1,4 @@
-package tech.nmhillusion.local_dependency_builder
+package tech.nmhillusion.local_dependency_builder.flow
 
 import tech.nmhillusion.local_dependency_builder.builder.FolderBuilder
 import tech.nmhillusion.local_dependency_builder.model.DependencyEntity
@@ -8,13 +8,40 @@ import tech.nmhillusion.local_dependency_builder.runner.MavenCommandRunner
 import tech.nmhillusion.n2mix.helper.YamlReader
 import tech.nmhillusion.n2mix.helper.log.LogHelper
 import tech.nmhillusion.n2mix.model.ResultResponseEntity
+import tech.nmhillusion.n2mix.model.cli.ParameterModel
+import tech.nmhillusion.n2mix.validator.StringValidator
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.exists
+import kotlin.io.path.notExists
 
-class App(private val configPath: String) {
+/**
+ * created by: nmhillusion
+ * <p>
+ * created date: 2024-06-09
+ */
+class BuilderFlow : BaseFlow() {
     private val dependencies = ArrayList<DependencyEntity>()
+    private lateinit var configPath: String
     private lateinit var localBuilderConfig: LocalBuilderConfig
+
+    override fun preExec(parameters: List<ParameterModel>) {
+        require(1 >= parameters.size) { "Invalid parameters: $parameters. Only one parameter is allowed for help." }
+
+        parameters.forEach {
+            if (listOf("configPath", "c").contains(it.name)) {
+                configPath = it.value
+            }
+        }
+
+        if (StringValidator.isBlank(configPath)) {
+            throw IllegalArgumentException("configPath is missing")
+        }
+
+        if (Path.of(configPath).notExists()) {
+            throw IllegalArgumentException("Invalid configPath: $configPath")
+        }
+    }
 
     val name: String
         get() {
@@ -22,7 +49,7 @@ class App(private val configPath: String) {
         }
 
 
-    fun <T> getConfig(configKey: String, class2Cast: Class<T>): T {
+    private fun <T> getConfig(configKey: String, class2Cast: Class<T>): T {
         Files.newInputStream(Path.of(configPath)).use {
             return YamlReader(it).getProperty(configKey, class2Cast)
         }
@@ -44,7 +71,11 @@ class App(private val configPath: String) {
         }
     }
 
-    fun exec() {
+    override fun acceptedParameterNames(): List<String> {
+        return listOf("configPath", "c")
+    }
+
+    override fun doExec(parameters: List<ParameterModel>) {
         /// Mark: Load App Config
         loadAppConfig()
 
@@ -145,4 +176,5 @@ class App(private val configPath: String) {
             }
         }
     }
+
 }

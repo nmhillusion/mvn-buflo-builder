@@ -1,9 +1,6 @@
 package tech.nmhillusion.local_dependency_builder
 
-import tech.nmhillusion.local_dependency_builder.service.ParameterParser
-import tech.nmhillusion.local_dependency_builder.validator.EnvironmentValidator
-import tech.nmhillusion.local_dependency_builder.validator.ParameterValidator
-import tech.nmhillusion.n2mix.helper.log.LogHelper
+import tech.nmhillusion.local_dependency_builder.service.AppFlowParser
 
 
 /**
@@ -12,27 +9,12 @@ import tech.nmhillusion.n2mix.helper.log.LogHelper
  * created date: 2024-06-02
  */
 fun main(args: Array<String>) {
-    val parameterParser = ParameterParser(args)
-    val parameters = parameterParser.parse()
-    LogHelper.getLogger(App::class).info("Arguments: $parameters")
-
-    EnvironmentValidator.validateRequiredCommand()
-
-    val configPath = parameters["configPath"]
-
-    if (!ParameterValidator.validateConfigPath(configPath)) {
-        LogHelper.getLogger(App::class).error("Invalid configPath: $configPath")
-        throw Exception("Invalid configPath: $configPath")
+    if (args.isEmpty()) {
+        println("No arguments")
+        throw IllegalArgumentException("type: -h or --help to see help how to use the app")
     }
 
-    val app = configPath?.let { App(it) }
-
-    if (null == app) {
-        LogHelper.getLogger(App::class).error("app is null")
-        throw Exception("app is null")
-    }
-
-    LogHelper.getLogger(app).info("... ${app.name} ...")
-
-    app.exec()
+    val parameterModels = tech.nmhillusion.n2mix.helper.cli.ParameterParser.parse(args)
+    val execFlow = AppFlowParser(parameterModels).parse()
+    execFlow.exec(parameterModels)
 }
