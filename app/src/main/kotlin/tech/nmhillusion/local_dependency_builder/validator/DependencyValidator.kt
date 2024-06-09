@@ -1,6 +1,7 @@
 package tech.nmhillusion.local_dependency_builder.validator
 
 import tech.nmhillusion.local_dependency_builder.model.DependencyEntity
+import tech.nmhillusion.n2mix.validator.StringValidator
 
 
 /**
@@ -22,6 +23,10 @@ abstract class DependencyValidator {
 
             if (dependencyEntity.name.isEmpty()) {
                 throw Exception("Dependency name is empty")
+            }
+
+            if (!StringValidator.isBlank(dependencyEntity.branch) && !StringValidator.isBlank(dependencyEntity.tag)) {
+                throw IllegalArgumentException("Dependency branch and tag cannot be set at the same time")
             }
         }
     }

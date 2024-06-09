@@ -1,6 +1,7 @@
 package tech.nmhillusion.local_dependency_builder.command
 
 import tech.nmhillusion.local_dependency_builder.model.DependencyEntity
+import tech.nmhillusion.n2mix.type.ChainList
 import java.nio.file.Path
 
 /**
@@ -27,9 +28,49 @@ class GitCommand {
         get() = listOf(gitCommand, "log")
 
 
-    fun cloneRepository(dependencyEntity: DependencyEntity, containerPath: String): List<String> = listOf(
-        gitCommand, "clone",
-        dependencyEntity.url,
-        Path.of(containerPath, dependencyEntity.name).toString()
-    )
+    fun checkoutCommand(dependencyEntity: DependencyEntity): List<String> {
+        val command = ChainList<String>()
+            .chainAdd(gitCommand)
+            .chainAdd("checkout")
+
+        if (null != dependencyEntity.tag) {
+            command
+                .chainAdd("tags/${dependencyEntity.tag}")
+        }
+
+        if (null != dependencyEntity.branch) {
+            command
+                .chainAdd(dependencyEntity.branch)
+        }
+
+        return command
+    }
+
+
+    fun cloneRepository(dependencyEntity: DependencyEntity, containerPath: String): List<String> {
+        val command = ChainList<String>()
+            .chainAdd(gitCommand)
+            .chainAdd("clone")
+            .chainAdd("--depth")
+            .chainAdd("1")
+
+        if (null != dependencyEntity.branch) {
+            command
+                .chainAdd("--branch")
+                .chainAdd(
+                    dependencyEntity.branch
+                )
+        }
+
+        command
+            .chainAdd("--single-branch")
+            .chainAdd(
+                dependencyEntity.url
+            )
+            .chainAdd(
+                Path.of(containerPath, dependencyEntity.name).toString()
+            )
+
+        return command
+    }
 }
