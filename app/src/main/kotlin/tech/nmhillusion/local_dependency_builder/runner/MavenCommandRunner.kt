@@ -35,9 +35,9 @@ class MavenCommandRunner(
         return commandRunner.exec()
     }
 
-    fun installExec(): Int {
+    fun installExec(ignoredTest: Boolean = true): Int {
         val commandRunner = CommandRunner(
-            mavenCommand.installCommand,
+            mavenCommand.installCommand(ignoredTest),
             localRepoPath.toFile()
         )
 

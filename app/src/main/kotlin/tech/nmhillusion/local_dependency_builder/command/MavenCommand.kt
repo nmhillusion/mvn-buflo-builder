@@ -19,6 +19,6 @@ class MavenCommand {
     val compileCommand: List<String>
         get() = listOf(mvnCommand, "compile")
 
-    val installCommand: List<String>
-        get() = listOf(mvnCommand, "install")
+    fun installCommand(ignoredTest: Boolean = true): List<String> =
+        if (ignoredTest) listOf(mvnCommand, "install", "-Dmaven.test.skip=true") else listOf(mvnCommand, "install")
 }
