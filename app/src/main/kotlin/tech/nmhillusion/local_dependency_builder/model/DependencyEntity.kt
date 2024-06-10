@@ -2,6 +2,7 @@ package tech.nmhillusion.local_dependency_builder.model
 
 import tech.nmhillusion.local_dependency_builder.validator.DependencyValidator
 import tech.nmhillusion.n2mix.util.StringUtil
+import tech.nmhillusion.n2mix.validator.StringValidator
 
 /**
  * created by: nmhillusion
@@ -13,7 +14,7 @@ data class DependencyEntity(val url: String, val branch: String?, val tag: Strin
         get() = url.split("/").last().replace(".git", "")
 
     val isNeedCheckout: Boolean
-        get() = null != branch || null != tag
+        get() = !StringValidator.isBlank(branch) || !StringValidator.isBlank(tag)
 
     companion object {
         fun fromMap(data: Map<*, *>): DependencyEntity {

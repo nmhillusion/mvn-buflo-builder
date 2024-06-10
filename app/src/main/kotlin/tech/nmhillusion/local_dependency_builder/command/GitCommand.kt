@@ -2,6 +2,7 @@ package tech.nmhillusion.local_dependency_builder.command
 
 import tech.nmhillusion.local_dependency_builder.model.DependencyEntity
 import tech.nmhillusion.n2mix.type.ChainList
+import tech.nmhillusion.n2mix.validator.StringValidator
 import java.nio.file.Path
 
 /**
@@ -54,7 +55,7 @@ class GitCommand {
             .chainAdd("--depth")
             .chainAdd("1")
 
-        if (null != dependencyEntity.branch) {
+        if (!StringValidator.isBlank(dependencyEntity.branch)) {
             command
                 .chainAdd("--branch")
                 .chainAdd(
