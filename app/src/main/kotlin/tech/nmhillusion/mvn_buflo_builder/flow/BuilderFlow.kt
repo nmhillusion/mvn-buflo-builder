@@ -45,7 +45,7 @@ class BuilderFlow : BaseFlow() {
 
     val name: String
         get() {
-            return "Local Dependency Builder"
+            return "MVN Buflo Builder"
         }
 
 
