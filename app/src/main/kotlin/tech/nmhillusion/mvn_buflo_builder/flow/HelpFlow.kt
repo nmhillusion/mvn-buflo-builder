@@ -21,6 +21,10 @@ class HelpFlow : BaseFlow() {
     override fun doExec(parameters: List<ParameterModel>) {
         println(
             """
+                ---------------------------
+                MVN Buflo Builder
+                ---------------------------
+                
                 Usage: ./app -c <path/to/config/file.yml>
                 or ./app --configPath <path/to/config/file.yml>
                 or ./app <path/to/config/file.yml>

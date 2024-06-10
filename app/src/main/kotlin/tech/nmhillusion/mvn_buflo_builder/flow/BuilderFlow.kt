@@ -26,6 +26,9 @@ class BuilderFlow : BaseFlow() {
     private lateinit var localBuilderConfig: LocalBuilderConfig
 
     override fun preExec(parameters: List<ParameterModel>) {
+        println(name)
+        println("---------------------")
+
         require(1 >= parameters.size) { "Invalid parameters: $parameters. Only one parameter is allowed for help." }
 
         parameters.forEach {
