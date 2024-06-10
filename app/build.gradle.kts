@@ -7,6 +7,8 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
  * For more details on building Java & JVM projects, please refer to https://docs.gradle.org/8.8/userguide/building_java_projects.html in the Gradle documentation.
  */
 
+val APP_NAME = "mvn-buflo-builder"
+
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     alias(libs.plugins.jvm)
@@ -51,15 +53,15 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "tech.nmhillusion.mvn_buflo_builder.MainKt"
+    mainClass = "tech.nmhillusion.${APP_NAME.replace("-", "_")}.MainKt"
 
     distributions {
         main {
-            distributionBaseName.set("mvn-buflo-builder")
+            distributionBaseName.set(APP_NAME)
         }
     }
 
-    archivesName = "mvn-buflo-builder"
+    archivesName = APP_NAME
 }
 
 tasks.named<Test>("test") {
