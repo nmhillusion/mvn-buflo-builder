@@ -1,4 +1,4 @@
-package tech.nmhillusion.local_dependency_builder.helper
+package tech.nmhillusion.mvn_buflo_builder.helper
 
 import java.util.*
 

@@ -1,10 +1,10 @@
-package tech.nmhillusion.local_dependency_builder.flow
+package tech.nmhillusion.mvn_buflo_builder.flow
 
-import tech.nmhillusion.local_dependency_builder.builder.FolderBuilder
-import tech.nmhillusion.local_dependency_builder.model.DependencyEntity
-import tech.nmhillusion.local_dependency_builder.model.LocalBuilderConfig
-import tech.nmhillusion.local_dependency_builder.runner.GitCommandRunner
-import tech.nmhillusion.local_dependency_builder.runner.MavenCommandRunner
+import tech.nmhillusion.mvn_buflo_builder.builder.FolderBuilder
+import tech.nmhillusion.mvn_buflo_builder.model.DependencyEntity
+import tech.nmhillusion.mvn_buflo_builder.model.LocalBuilderConfig
+import tech.nmhillusion.mvn_buflo_builder.runner.GitCommandRunner
+import tech.nmhillusion.mvn_buflo_builder.runner.MavenCommandRunner
 import tech.nmhillusion.n2mix.helper.YamlReader
 import tech.nmhillusion.n2mix.helper.log.LogHelper
 import tech.nmhillusion.n2mix.model.ResultResponseEntity

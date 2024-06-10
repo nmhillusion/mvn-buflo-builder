@@ -1,6 +1,6 @@
-package tech.nmhillusion.local_dependency_builder.command
+package tech.nmhillusion.mvn_buflo_builder.command
 
-import tech.nmhillusion.local_dependency_builder.helper.SystemHelper
+import tech.nmhillusion.mvn_buflo_builder.helper.SystemHelper
 
 /**
  * created by: nmhillusion

@@ -1,4 +1,4 @@
-package tech.nmhillusion.local_dependency_builder.builder
+package tech.nmhillusion.mvn_buflo_builder.builder
 
 import java.nio.file.Path
 

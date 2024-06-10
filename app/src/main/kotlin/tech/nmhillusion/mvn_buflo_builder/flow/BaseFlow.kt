@@ -1,4 +1,4 @@
-package tech.nmhillusion.local_dependency_builder.flow
+package tech.nmhillusion.mvn_buflo_builder.flow
 
 import tech.nmhillusion.n2mix.model.cli.ParameterModel
 import tech.nmhillusion.n2mix.util.StringUtil

@@ -1,8 +1,8 @@
-package tech.nmhillusion.local_dependency_builder.validator
+package tech.nmhillusion.mvn_buflo_builder.validator
 
-import tech.nmhillusion.local_dependency_builder.command.GitCommand
-import tech.nmhillusion.local_dependency_builder.command.MavenCommand
-import tech.nmhillusion.local_dependency_builder.runner.CommandRunner
+import tech.nmhillusion.mvn_buflo_builder.command.GitCommand
+import tech.nmhillusion.mvn_buflo_builder.command.MavenCommand
+import tech.nmhillusion.mvn_buflo_builder.runner.CommandRunner
 
 
 /**

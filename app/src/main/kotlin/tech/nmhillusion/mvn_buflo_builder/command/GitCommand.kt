@@ -1,6 +1,6 @@
-package tech.nmhillusion.local_dependency_builder.command
+package tech.nmhillusion.mvn_buflo_builder.command
 
-import tech.nmhillusion.local_dependency_builder.model.DependencyEntity
+import tech.nmhillusion.mvn_buflo_builder.model.DependencyEntity
 import tech.nmhillusion.n2mix.type.ChainList
 import tech.nmhillusion.n2mix.validator.StringValidator
 import java.nio.file.Path

@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: tech.nmhillusion.local_dependency_builder.AppKt
+Main-Class: tech.nmhillusion.mvn_buflo_builder.AppKt
 

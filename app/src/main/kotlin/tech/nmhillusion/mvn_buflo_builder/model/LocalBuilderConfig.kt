@@ -1,4 +1,4 @@
-package tech.nmhillusion.local_dependency_builder.model
+package tech.nmhillusion.mvn_buflo_builder.model
 
 import tech.nmhillusion.n2mix.util.StringUtil
 

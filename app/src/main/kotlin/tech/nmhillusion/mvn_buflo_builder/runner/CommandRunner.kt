@@ -1,4 +1,4 @@
-package tech.nmhillusion.local_dependency_builder.runner
+package tech.nmhillusion.mvn_buflo_builder.runner
 
 import tech.nmhillusion.n2mix.helper.log.LogHelper
 import java.io.*

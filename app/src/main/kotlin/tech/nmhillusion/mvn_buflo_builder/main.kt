@@ -1,6 +1,6 @@
-package tech.nmhillusion.local_dependency_builder
+package tech.nmhillusion.mvn_buflo_builder
 
-import tech.nmhillusion.local_dependency_builder.service.AppFlowParser
+import tech.nmhillusion.mvn_buflo_builder.service.AppFlowParser
 
 
 /**

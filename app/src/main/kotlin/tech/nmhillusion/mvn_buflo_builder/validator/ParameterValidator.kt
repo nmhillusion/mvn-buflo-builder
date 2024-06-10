@@ -1,4 +1,4 @@
-package tech.nmhillusion.local_dependency_builder.validator
+package tech.nmhillusion.mvn_buflo_builder.validator
 
 import java.nio.file.Files
 import java.nio.file.Path

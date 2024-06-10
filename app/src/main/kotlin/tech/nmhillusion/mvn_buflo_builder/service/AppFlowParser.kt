@@ -1,8 +1,8 @@
-package tech.nmhillusion.local_dependency_builder.service
+package tech.nmhillusion.mvn_buflo_builder.service
 
-import tech.nmhillusion.local_dependency_builder.flow.BaseFlow
-import tech.nmhillusion.local_dependency_builder.flow.BuilderFlow
-import tech.nmhillusion.local_dependency_builder.flow.HelpFlow
+import tech.nmhillusion.mvn_buflo_builder.flow.BaseFlow
+import tech.nmhillusion.mvn_buflo_builder.flow.BuilderFlow
+import tech.nmhillusion.mvn_buflo_builder.flow.HelpFlow
 import tech.nmhillusion.n2mix.helper.log.LogHelper
 import tech.nmhillusion.n2mix.model.cli.ParameterModel
 
