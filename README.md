@@ -6,6 +6,12 @@
 
 A simple command line tool to build Maven projects with the Buflo Builder.
 
+## Prerequisites:
+
+- [Java](https://www.java.com/en/download/) 21 or higher
+- [Git](https://git-scm.com/)
+- [Maven](https://maven.apache.org/) 3.6.3 or higher
+
 ## Usage:
 
 ```bash
