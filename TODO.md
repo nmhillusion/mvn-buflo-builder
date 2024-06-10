@@ -1,3 +1,0 @@
-- help parameter for app
-- rewrite for parameter parser
-- change built app file name to `LocalBufloBuilder`
