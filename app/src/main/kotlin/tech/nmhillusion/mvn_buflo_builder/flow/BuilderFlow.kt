@@ -32,9 +32,7 @@ class BuilderFlow : BaseFlow() {
         require(1 >= parameters.size) { "Invalid parameters: $parameters. Only one parameter is allowed for help." }
 
         parameters.forEach {
-            if (listOf("configPath", "c").contains(it.name)) {
-                configPath = it.value
-            }
+            configPath = it.value
         }
 
         if (StringValidator.isBlank(configPath)) {
