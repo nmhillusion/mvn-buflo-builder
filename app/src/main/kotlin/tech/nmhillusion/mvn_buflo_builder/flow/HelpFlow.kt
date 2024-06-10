@@ -21,11 +21,11 @@ class HelpFlow : BaseFlow() {
     override fun doExec(parameters: List<ParameterModel>) {
         println(
             """
-                Usage: local_dependency_builder -c <path/to/config/file.yml>
-                or local_dependency_builder --configPath <path/to/config/file.yml>
-                or local_dependency_builder <path/to/config/file.yml>
-                or local_dependency_builder --help
-                or local_dependency_builder -h
+                Usage: ./app -c <path/to/config/file.yml>
+                or ./app --configPath <path/to/config/file.yml>
+                or ./app <path/to/config/file.yml>
+                or ./app --help
+                or ./app -h
 
                 Options:
                 -c, --configPath: path to the config file
