@@ -2,6 +2,7 @@ package tech.nmhillusion.local_dependency_builder.flow
 
 import tech.nmhillusion.n2mix.model.cli.ParameterModel
 import tech.nmhillusion.n2mix.util.StringUtil
+import kotlin.system.exitProcess
 
 /**
  * created by: nmhillusion
@@ -29,6 +30,9 @@ abstract class BaseFlow {
 
         /// Mark: POST EXEC
         postExec(parameters)
+
+        /// Mark: EXIT PROCESS
+        exitProcess(0)
     }
 
     protected open fun preExec(parameters: List<ParameterModel>) {}
