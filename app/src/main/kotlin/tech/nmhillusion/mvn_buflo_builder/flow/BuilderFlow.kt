@@ -75,7 +75,7 @@ class BuilderFlow : BaseFlow() {
     }
 
     override fun acceptedParameterNames(): List<String> {
-        return listOf("configPath", "c")
+        return listOf("configPath", "c", "")
     }
 
     override fun doExec(parameters: List<ParameterModel>) {
