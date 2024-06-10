@@ -40,14 +40,19 @@ class CommandRunner(private val command: List<String>, private val workingDirect
         stdOutThread.start()
         stdErrThread.start()
 
+        process.onExit().thenRun {
+            stdOutThread.interrupt()
+            stdErrThread.interrupt()
+        }
+
         return process.waitFor()
     }
 
     private fun readStream(stream: InputStream, type: String) {
         try {
             BufferedReader(InputStreamReader(stream)).use { reader ->
-                var line: String
-                while ((reader.readLine().also { line = it }) != null) {
+                var line: String? = null
+                while ((reader.readLine()?.let { line = it }) != null) {
                     println("$type: $line")
                 }
             }
