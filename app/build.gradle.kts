@@ -59,7 +59,7 @@ application {
         }
     }
 
-    archivesName = "local-dependency-builder"
+    archivesName = "mvn-buflo-builder"
 }
 
 tasks.named<Test>("test") {
