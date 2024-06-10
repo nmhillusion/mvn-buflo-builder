@@ -4,7 +4,8 @@
 
 [![GitHub release](https://img.shields.io/github/v/release/nmhillusion/mvn-buflo-builder?style=flat-square)](https://github.com/nmhillusion/mvn-buflo-builder/releases)
 
-A simple command line tool to build Maven projects as local dependencies with the Buflo Builder from Git VCS repositories.
+A simple command line tool to build and install Maven projects as local dependencies from Git VCS
+repositories.
 
 ## Prerequisites:
 
@@ -29,7 +30,23 @@ A simple command line tool to build Maven projects as local dependencies with th
 - `-c, --configPath`: path to the config file
 - `-h, --help`: show help
 
-## Config file example:
+## Config file:
+
+### Structure
+
+- `config`: configuration
+  - `tempRepoPath`: path to the temporary repository
+  - `deleteAfterRun`: delete the temporary repository after build
+- `dependencies`: list of dependencies
+  - `url`: url of the repository
+  - `rootPath`: root path of maven project to build
+  - `ignoredTest`: ignore tests
+  - `tag`: tag of the repository
+  - `branch`: branch of the repository
+
+* Note: `branch` and `tag` cannot be set at the same time
+
+### Example
 
 ```yaml
 
