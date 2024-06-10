@@ -4,7 +4,7 @@
 
 [![GitHub release](https://img.shields.io/github/v/release/nmhillusion/mvn-buflo-builder?style=flat-square)](https://github.com/nmhillusion/mvn-buflo-builder/releases)
 
-A simple command line tool to build Maven projects with the Buflo Builder.
+A simple command line tool to build Maven projects as local dependencies with the Buflo Builder from Git VCS repositories.
 
 ## Prerequisites:
 
