@@ -167,7 +167,7 @@ class BuilderFlow : BaseFlow() {
             throw Exception("Failed to compile repository")
         }
 
-        val mvnInstallExitCode = mavenCommandRunner.installExec()
+        val mvnInstallExitCode = mavenCommandRunner.installExec(dependency_.ignoredTest)
         LogHelper.getLogger(this).info("mvnInstallExitCode: $mvnInstallExitCode")
 
         if (0 != mvnInstallExitCode) {

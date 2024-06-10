@@ -9,7 +9,13 @@ import tech.nmhillusion.n2mix.validator.StringValidator
  * <p>
  * created date: 2024-06-01
  */
-data class DependencyEntity(val url: String, val branch: String?, val tag: String?, val rootPath: String?) {
+data class DependencyEntity(
+    val url: String,
+    val branch: String?,
+    val tag: String?,
+    val rootPath: String?,
+    val ignoredTest: Boolean = true
+) {
     val name: String
         get() = url.split("/").last().replace(".git", "")
 
@@ -22,12 +28,14 @@ data class DependencyEntity(val url: String, val branch: String?, val tag: Strin
             val branch = StringUtil.trimWithNull(data["branch"])
             val tag = StringUtil.trimWithNull(data["tag"])
             val rootPath = StringUtil.trimWithNull(data["rootPath"])
+            val ignoredTest = "false" != StringUtil.trimWithNull(data["ignoredTest"]).lowercase()
 
             val dependencyEntity = DependencyEntity(
                 url = baseUrl,
                 branch = branch,
                 tag = tag,
-                rootPath = rootPath
+                rootPath = rootPath,
+                ignoredTest = ignoredTest
             )
 
             DependencyValidator.validateDependency(dependencyEntity)
