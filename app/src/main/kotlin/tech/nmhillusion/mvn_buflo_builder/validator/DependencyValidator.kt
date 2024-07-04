@@ -1,6 +1,6 @@
 package tech.nmhillusion.mvn_buflo_builder.validator
 
-import tech.nmhillusion.mvn_buflo_builder.model.DependencyEntity
+import tech.nmhillusion.mvn_buflo_builder.model.dependency.DependencyEntity
 import tech.nmhillusion.n2mix.validator.StringValidator
 
 

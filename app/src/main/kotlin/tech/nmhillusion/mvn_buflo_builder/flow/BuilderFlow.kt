@@ -1,8 +1,9 @@
 package tech.nmhillusion.mvn_buflo_builder.flow
 
 import tech.nmhillusion.mvn_buflo_builder.builder.FolderBuilder
-import tech.nmhillusion.mvn_buflo_builder.model.DependencyEntity
 import tech.nmhillusion.mvn_buflo_builder.model.LocalBuilderConfig
+import tech.nmhillusion.mvn_buflo_builder.model.dependency.DependencyEntity
+import tech.nmhillusion.mvn_buflo_builder.model.dependency.GitDependencyEntity
 import tech.nmhillusion.mvn_buflo_builder.runner.GitCommandRunner
 import tech.nmhillusion.mvn_buflo_builder.runner.MavenCommandRunner
 import tech.nmhillusion.n2mix.helper.YamlReader
@@ -126,7 +127,7 @@ class BuilderFlow : BaseFlow() {
         }
     }
 
-    private fun buildDependency(dependency_: DependencyEntity) {
+    private fun buildDependency(dependency_: GitDependencyEntity) {
         /// Mark: PREPARE FOLDER
         val localRepoPath = Path.of(localBuilderConfig.tempRepoPath, dependency_.name)
         LogHelper.getLogger(this).info("localRepoPath: $localRepoPath")

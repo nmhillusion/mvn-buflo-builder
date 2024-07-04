@@ -1,7 +1,7 @@
 package tech.nmhillusion.mvn_buflo_builder.runner
 
 import tech.nmhillusion.mvn_buflo_builder.command.MavenCommand
-import tech.nmhillusion.mvn_buflo_builder.model.DependencyEntity
+import tech.nmhillusion.mvn_buflo_builder.model.dependency.DependencyEntity
 import java.nio.file.Path
 
 /**

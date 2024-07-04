@@ -1,10 +1,14 @@
 config:
   tempRepoPath: temp
   deleteAfterRun: true
+  accessToken:
+    tokenName: nmhillusion
+    tokenValue: "dtUddc345sDFs"
 
 dependencies:
   - url: https://github.com/nmhillusion/neon-di.git
     rootPath: .
+    useAccessToken: true
 
   - url: https://github.com/nmhillusion/pi-logger.git
     rootPath: .
