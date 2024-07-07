@@ -1,6 +1,7 @@
 package tech.nmhillusion.mvn_buflo_builder
 
 import tech.nmhillusion.mvn_buflo_builder.service.AppFlowParser
+import kotlin.system.exitProcess
 
 
 /**
@@ -14,7 +15,12 @@ fun main(args: Array<String>) {
         throw IllegalArgumentException("type: -h or --help to see help how to use the app")
     }
 
-    val parameterModels = tech.nmhillusion.n2mix.helper.cli.ParameterParser.parse(args)
-    val execFlow = AppFlowParser(parameterModels).parse()
-    execFlow.exec(parameterModels)
+    try {
+        val parameterModels = tech.nmhillusion.n2mix.helper.cli.ParameterParser.parse(args)
+        val execFlow = AppFlowParser(parameterModels).parse()
+        execFlow.exec(parameterModels)
+    } catch (e: Exception) {
+        e.printStackTrace(System.err)
+        exitProcess(1)
+    }
 }
