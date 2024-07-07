@@ -10,7 +10,6 @@ dependencies:
     rootPath: .
 
   - path: "C:\\Users\\nmhil\\OneDrive\\Desktop\\tmp\\pi-logger-2023.3.1.jar"
-    rootPath: .
     groupId: tech.nmhillusion
     artifactId: pi-logger
     version: 2023.3.1

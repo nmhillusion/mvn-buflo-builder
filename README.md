@@ -37,12 +37,22 @@ repositories.
 - `config`: configuration
   - `tempRepoPath`: path to the temporary repository
   - `deleteAfterRun`: delete the temporary repository after build
-- `dependencies`: list of dependencies
-  - `url`: url of the repository
-  - `rootPath`: root path of maven project to build
-  - `ignoredTest`: ignore tests
-  - `tag`: tag of the repository
-  - `branch`: branch of the repository
+  - `accessToken`: access token
+    - tokenName: name of the token
+    - tokenValue: value of the token
+- `dependencies`: list of dependencies. There are two types of dependencies:
+  - GIT DEPENDENCY, with the following fields:
+    - `path`: path of the repository
+    - `rootPath`: root path of maven project to build
+    - `ignoredTest`: ignore tests
+    - `tag`: tag of the repository
+    - `branch`: branch of the repository
+    - `useAccessToken`: use access token in config above or not
+  - LOCAL DEPENDENCY, with the following fields:
+    - `path`: path of the jar file to install
+    - `groupId`: groupId of the dependency
+    - `artifactId`: artifactId of the dependency
+    - `version`: version of the dependency
 
 * Note: `branch` and `tag` cannot be set at the same time
 
@@ -53,16 +63,17 @@ repositories.
 config:
   tempRepoPath: temp
   deleteAfterRun: true
+  accessToken:
+    tokenName: nmhillusion
+    tokenValue: "dtUddc345sDFs"
 
 dependencies:
-  - url: https://github.com/nmhillusion/neon-di.git
+  - path: https://github.com/nmhillusion/neon-di.git
     rootPath: .
-    ignoredTest: false
-    tag: 2024.5.5
 
-  - url: https://github.com/nmhillusion/pi-logger.git
-    rootPath: .
-    ignoredTest: true
-    branch: main
+  - path: "C:\\Users\\nmhil\\OneDrive\\Desktop\\tmp\\pi-logger-2023.3.1.jar"
+    groupId: tech.nmhillusion
+    artifactId: pi-logger
+    version: 2023.3.1
 
 ```
