@@ -18,10 +18,6 @@ class GitDependencyEntity(
     val ignoredTest: Boolean,
     val useAccessToken: Boolean
 ) : DependencyEntity(path, rootPath) {
-    val name: String
-        get() = path.split("/").last()
-            .replace(".git", "")
-
     val isNeedCheckout: Boolean
         get() = !StringValidator.isBlank(branch) || !StringValidator.isBlank(tag)
 

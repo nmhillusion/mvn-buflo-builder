@@ -12,6 +12,11 @@ abstract class DependencyEntity(
     val rootPath: String?,
 ) {
 
+    val name: String
+        get() = path.split("/").last()
+            .replace(".git", "")
+            .replace(".jar", "")
+
     companion object {
         fun isLocalDependency(path: String): Boolean {
             return StringUtil.trimWithNull(path).endsWith(".jar")
