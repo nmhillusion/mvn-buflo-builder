@@ -1,5 +1,7 @@
 package tech.nmhillusion.mvn_buflo_builder.model.dependency
 
+import tech.nmhillusion.mvn_buflo_builder.validator.DependencyValidator.Companion.isGitDependency
+import tech.nmhillusion.mvn_buflo_builder.validator.DependencyValidator.Companion.isLocalDependency
 import tech.nmhillusion.n2mix.util.StringUtil
 
 /**
@@ -14,13 +16,7 @@ abstract class DependencyEntity(
     abstract val name: String
 
     companion object {
-        fun isLocalDependency(path: String): Boolean {
-            return StringUtil.trimWithNull(path).endsWith(".jar")
-        }
 
-        fun isGitDependency(path: String): Boolean {
-            return StringUtil.trimWithNull(path).matches("https?://.*(?:\\.git)?".toRegex())
-        }
 
         fun fromMap(data: Map<*, *>): DependencyEntity {
             if (!data.containsKey("path")) {
