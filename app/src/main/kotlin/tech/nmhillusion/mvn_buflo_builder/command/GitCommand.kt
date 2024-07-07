@@ -1,5 +1,6 @@
 package tech.nmhillusion.mvn_buflo_builder.command
 
+import tech.nmhillusion.mvn_buflo_builder.model.AccessTokenConfig
 import tech.nmhillusion.mvn_buflo_builder.model.dependency.GitDependencyEntity
 import tech.nmhillusion.n2mix.type.ChainList
 import tech.nmhillusion.n2mix.validator.StringValidator
@@ -48,7 +49,11 @@ class GitCommand {
     }
 
 
-    fun cloneRepository(dependencyEntity: GitDependencyEntity, containerPath: String): List<String> {
+    fun cloneRepository(
+        dependencyEntity: GitDependencyEntity,
+        containerPath: String,
+        accessTokenConfig: AccessTokenConfig?
+    ): List<String> {
         val command = ChainList<String>()
             .chainAdd(gitCommand)
             .chainAdd("clone")
@@ -66,7 +71,7 @@ class GitCommand {
         command
             .chainAdd("--single-branch")
             .chainAdd(
-                dependencyEntity.path
+                dependencyEntity.getUrl(accessTokenConfig)
             )
             .chainAdd(
                 Path.of(containerPath, dependencyEntity.name).toString()

@@ -1,6 +1,7 @@
 package tech.nmhillusion.mvn_buflo_builder.runner
 
 import tech.nmhillusion.mvn_buflo_builder.command.GitCommand
+import tech.nmhillusion.mvn_buflo_builder.model.LocalBuilderConfig
 import tech.nmhillusion.mvn_buflo_builder.model.dependency.GitDependencyEntity
 
 
@@ -11,13 +12,14 @@ import tech.nmhillusion.mvn_buflo_builder.model.dependency.GitDependencyEntity
  */
 class GitCommandRunner(
     private val dependencyEntity: GitDependencyEntity,
-    private val workingFolder: String
+    private val localBuilderConfig: LocalBuilderConfig
 ) {
     private val gitCommand = GitCommand()
+    private val workingFolder: String = localBuilderConfig.tempRepoPath
 
     fun cloneExec(): Int {
         val commandRunner = CommandRunner(
-            command = gitCommand.cloneRepository(dependencyEntity, workingFolder)
+            command = gitCommand.cloneRepository(dependencyEntity, workingFolder, localBuilderConfig.accessToken)
         )
         return commandRunner.exec()
     }

@@ -25,7 +25,7 @@ class GitDependencyBuilderFlow : DependencyBuilderFlow<GitDependencyEntity> {
         }
 
         /// Mark: GIT
-        val gitCommandRunner = GitCommandRunner(dependency_, localBuilderConfig.tempRepoPath)
+        val gitCommandRunner = GitCommandRunner(dependency_, localBuilderConfig)
 
         val cloneExitCode = gitCommandRunner.cloneExec()
         LogHelper.getLogger(this).info("cloneExitCode: $cloneExitCode")

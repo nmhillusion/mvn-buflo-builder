@@ -1,8 +1,10 @@
 package tech.nmhillusion.mvn_buflo_builder.model.dependency
 
+import tech.nmhillusion.mvn_buflo_builder.model.AccessTokenConfig
 import tech.nmhillusion.mvn_buflo_builder.validator.DependencyValidator
 import tech.nmhillusion.n2mix.util.StringUtil
 import tech.nmhillusion.n2mix.validator.StringValidator
+import java.util.regex.Pattern
 
 /**
  * created by: nmhillusion
@@ -23,6 +25,14 @@ class GitDependencyEntity(
 
     val isNeedCheckout: Boolean
         get() = !StringValidator.isBlank(branch) || !StringValidator.isBlank(tag)
+
+    fun getUrl(accessToken: AccessTokenConfig?): String = if (useAccessToken && null != accessToken) {
+        Pattern.compile("(https?://)(.*)")
+            .matcher(path)
+            .replaceFirst("$1${accessToken.tokenName}:${accessToken.tokenValue}@$2")
+    } else {
+        path
+    }
 
     companion object {
         fun fromMap(data: Map<*, *>): GitDependencyEntity {
