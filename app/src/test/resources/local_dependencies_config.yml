@@ -6,9 +6,11 @@ config:
     tokenValue: "dtUddc345sDFs"
 
 dependencies:
-  - url: https://github.com/nmhillusion/neon-di.git
+  - path: https://github.com/nmhillusion/neon-di.git
     rootPath: .
-    useAccessToken: true
 
-  - url: https://github.com/nmhillusion/pi-logger.git
+  - path: "C:\\Users\\nmhil\\OneDrive\\Desktop\\tmp\\pi-logger-2023.3.1.jar"
     rootPath: .
+    groupId: tech.nmhillusion
+    artifactId: pi-logger
+    version: 2023.3.1

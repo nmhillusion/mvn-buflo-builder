@@ -9,13 +9,9 @@ import tech.nmhillusion.n2mix.util.StringUtil
  */
 abstract class DependencyEntity(
     val path: String,
-    val rootPath: String?,
 ) {
 
-    val name: String
-        get() = path.split("/").last()
-            .replace(".git", "")
-            .replace(".jar", "")
+    abstract val name: String
 
     companion object {
         fun isLocalDependency(path: String): Boolean {
@@ -27,6 +23,10 @@ abstract class DependencyEntity(
         }
 
         fun fromMap(data: Map<*, *>): DependencyEntity {
+            if (!data.containsKey("path")) {
+                throw IllegalArgumentException("Dependency path is empty")
+            }
+
             val path_ = StringUtil.trimWithNull(data["path"])
 
             return if (isLocalDependency(path_)) {
@@ -34,7 +34,7 @@ abstract class DependencyEntity(
             } else if (isGitDependency(path_)) {
                 GitDependencyEntity.fromMap(data)
             } else {
-                throw IllegalArgumentException("Unsupported dependency type")
+                throw IllegalArgumentException("Unsupported dependency type: $path_")
             }
         }
     }

@@ -1,7 +1,7 @@
 package tech.nmhillusion.mvn_buflo_builder.runner
 
 import tech.nmhillusion.mvn_buflo_builder.command.GitCommand
-import tech.nmhillusion.mvn_buflo_builder.model.dependency.DependencyEntity
+import tech.nmhillusion.mvn_buflo_builder.model.dependency.GitDependencyEntity
 
 
 /**
@@ -10,7 +10,7 @@ import tech.nmhillusion.mvn_buflo_builder.model.dependency.DependencyEntity
  * created date: 2024-06-03
  */
 class GitCommandRunner(
-    private val dependencyEntity: DependencyEntity,
+    private val dependencyEntity: GitDependencyEntity,
     private val workingFolder: String
 ) {
     private val gitCommand = GitCommand()

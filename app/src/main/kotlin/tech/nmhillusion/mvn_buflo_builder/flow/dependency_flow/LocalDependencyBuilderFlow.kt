@@ -2,6 +2,7 @@ package tech.nmhillusion.mvn_buflo_builder.flow.dependency_flow
 
 import tech.nmhillusion.mvn_buflo_builder.model.LocalBuilderConfig
 import tech.nmhillusion.mvn_buflo_builder.model.dependency.LocalDependencyEntity
+import tech.nmhillusion.mvn_buflo_builder.runner.MavenCommandRunner
 
 
 /**
@@ -11,6 +12,13 @@ import tech.nmhillusion.mvn_buflo_builder.model.dependency.LocalDependencyEntity
 
 class LocalDependencyBuilderFlow : DependencyBuilderFlow<LocalDependencyEntity> {
     override fun buildDependency(dependency_: LocalDependencyEntity, localBuilderConfig: LocalBuilderConfig) {
-        // TODO
+
+        val mavenCommandRunner = MavenCommandRunner(dependency_, localBuilderConfig.tempRepoPath)
+
+        /// Mark: INSTALL LOCAL MAVEN JAR FILE
+        val mvnInstallExitCode = mavenCommandRunner.installJarLocalExec()
+        if (0 != mvnInstallExitCode) {
+            throw Exception("Failed to install dependency")
+        }
     }
 }

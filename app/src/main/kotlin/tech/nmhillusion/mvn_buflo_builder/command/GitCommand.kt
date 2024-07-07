@@ -1,6 +1,6 @@
 package tech.nmhillusion.mvn_buflo_builder.command
 
-import tech.nmhillusion.mvn_buflo_builder.model.dependency.DependencyEntity
+import tech.nmhillusion.mvn_buflo_builder.model.dependency.GitDependencyEntity
 import tech.nmhillusion.n2mix.type.ChainList
 import tech.nmhillusion.n2mix.validator.StringValidator
 import java.nio.file.Path
@@ -29,7 +29,7 @@ class GitCommand {
         get() = listOf(gitCommand, "log")
 
 
-    fun checkoutCommand(dependencyEntity: DependencyEntity): List<String> {
+    fun checkoutCommand(dependencyEntity: GitDependencyEntity): List<String> {
         val command = ChainList<String>()
             .chainAdd(gitCommand)
             .chainAdd("checkout")
@@ -48,7 +48,7 @@ class GitCommand {
     }
 
 
-    fun cloneRepository(dependencyEntity: DependencyEntity, containerPath: String): List<String> {
+    fun cloneRepository(dependencyEntity: GitDependencyEntity, containerPath: String): List<String> {
         val command = ChainList<String>()
             .chainAdd(gitCommand)
             .chainAdd("clone")
@@ -66,7 +66,7 @@ class GitCommand {
         command
             .chainAdd("--single-branch")
             .chainAdd(
-                dependencyEntity.url
+                dependencyEntity.path
             )
             .chainAdd(
                 Path.of(containerPath, dependencyEntity.name).toString()

@@ -1,28 +1,24 @@
-package tech.nmhillusion.mvn_buflo_builder.exception;
+package tech.nmhillusion.mvn_buflo_builder.exception
 
 /**
  * created by: nmhillusion
- * <p>
+ *
+ *
  * created date: 2024-07-07
  */
-public class UnsupportedDependencyException extends Exception {
+class UnsupportedDependencyException : Exception {
+    constructor()
 
-    public UnsupportedDependencyException() {
-    }
+    constructor(message: String?) : super(message)
 
-    public UnsupportedDependencyException(String message) {
-        super(message);
-    }
+    constructor(message: String?, cause: Throwable?) : super(message, cause)
 
-    public UnsupportedDependencyException(String message, Throwable cause) {
-        super(message, cause);
-    }
+    constructor(cause: Throwable?) : super(cause)
 
-    public UnsupportedDependencyException(Throwable cause) {
-        super(cause);
-    }
-
-    public UnsupportedDependencyException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
+    constructor(message: String?, cause: Throwable?, enableSuppression: Boolean, writableStackTrace: Boolean) : super(
+        message,
+        cause,
+        enableSuppression,
+        writableStackTrace
+    )
 }

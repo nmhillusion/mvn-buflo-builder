@@ -6,24 +6,27 @@ import tech.nmhillusion.n2mix.validator.StringValidator
 
 /**
  * created by: nmhillusion
- *
- *
  * created date: 2024-07-04
  */
 class GitDependencyEntity(
     path: String,
-    rootPath: String?,
+    val rootPath: String?,
     val branch: String?,
     val tag: String?,
     val ignoredTest: Boolean,
     val useAccessToken: Boolean
-) : DependencyEntity(path, rootPath) {
+) : DependencyEntity(path) {
+
+    override val name: String
+        get() = path.split("/").last()
+            .replace(".git", "")
+
     val isNeedCheckout: Boolean
         get() = !StringValidator.isBlank(branch) || !StringValidator.isBlank(tag)
 
     companion object {
         fun fromMap(data: Map<*, *>): GitDependencyEntity {
-            val baseUrl = StringUtil.trimWithNull(data["url"])
+            val baseUrl = StringUtil.trimWithNull(data["path"])
             val branch = StringUtil.trimWithNull(data["branch"])
             val tag = StringUtil.trimWithNull(data["tag"])
             val rootPath = StringUtil.trimWithNull(data["rootPath"])

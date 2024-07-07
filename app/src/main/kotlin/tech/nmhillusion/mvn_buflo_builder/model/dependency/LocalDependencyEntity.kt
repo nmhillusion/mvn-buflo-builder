@@ -5,29 +5,28 @@ import tech.nmhillusion.n2mix.util.StringUtil
 
 /**
  * created by: nmhillusion
- *
- *
+ * <p>
  * created date: 2024-07-04
  */
 class LocalDependencyEntity(
     path: String,
-    rootPath: String,
     val groupId: String,
     val artifactId: String,
     val version: String
-) : DependencyEntity(path, rootPath) {
+) : DependencyEntity(path) {
+
+    override val name: String
+        get() = "$groupId:$artifactId:$version"
 
     companion object {
         fun fromMap(data: Map<*, *>): LocalDependencyEntity {
             val path_ = StringUtil.trimWithNull(data["path"])
-            val rootPath = StringUtil.trimWithNull(data["rootPath"])
             val groupId = StringUtil.trimWithNull(data["groupId"])
             val artifactId = StringUtil.trimWithNull(data["artifactId"])
             val version_ = StringUtil.trimWithNull(data["version"])
 
             val dependencyEntity = LocalDependencyEntity(
                 path = path_,
-                rootPath = rootPath,
                 groupId = groupId,
                 artifactId = artifactId,
                 version = version_
