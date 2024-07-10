@@ -33,7 +33,7 @@ abstract class DependencyValidator {
 
             /// Mark: PATH
             if (dependencyEntity.path.isEmpty()) {
-                throw Exception("Dependency path is empty")
+                throw Exception("Dependency path is empty. $dependencyEntity")
             }
 
             if (dependencyEntity is GitDependencyEntity) {
@@ -51,25 +51,25 @@ abstract class DependencyValidator {
 
             /// Mark: NAME
             if (dependencyEntity.name.isEmpty()) {
-                throw Exception("Dependency name is empty")
+                throw Exception("Dependency name is empty. $dependencyEntity")
             }
 
             /// Mark: FOR SPECIFIC DEPENDENCY TYPE
             if (dependencyEntity is GitDependencyEntity) {
                 if (!StringValidator.isBlank(dependencyEntity.branch) && !StringValidator.isBlank(dependencyEntity.tag)) {
-                    throw IllegalArgumentException("Dependency branch and tag cannot be set at the same time")
+                    throw IllegalArgumentException("Dependency branch and tag cannot be set at the same time. $dependencyEntity")
                 }
             } else if (dependencyEntity is LocalDependencyEntity) {
-                if (!StringValidator.isBlank(dependencyEntity.groupId)) {
-                    throw IllegalArgumentException("Dependency groupId cannot be empty")
+                if (StringValidator.isBlank(dependencyEntity.groupId)) {
+                    throw IllegalArgumentException("Dependency groupId cannot be empty. $dependencyEntity")
                 }
 
-                if (!StringValidator.isBlank(dependencyEntity.artifactId)) {
-                    throw IllegalArgumentException("Dependency artifactId cannot be empty")
+                if (StringValidator.isBlank(dependencyEntity.artifactId)) {
+                    throw IllegalArgumentException("Dependency artifactId cannot be empty. $dependencyEntity")
                 }
 
-                if (!StringValidator.isBlank(dependencyEntity.version)) {
-                    throw IllegalArgumentException("Dependency version cannot be empty")
+                if (StringValidator.isBlank(dependencyEntity.version)) {
+                    throw IllegalArgumentException("Dependency version cannot be empty. $dependencyEntity")
                 }
             }
         }

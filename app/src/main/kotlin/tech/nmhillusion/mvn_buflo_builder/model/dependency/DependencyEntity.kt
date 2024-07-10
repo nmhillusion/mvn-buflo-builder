@@ -2,6 +2,7 @@ package tech.nmhillusion.mvn_buflo_builder.model.dependency
 
 import tech.nmhillusion.mvn_buflo_builder.validator.DependencyValidator.Companion.isGitDependency
 import tech.nmhillusion.mvn_buflo_builder.validator.DependencyValidator.Companion.isLocalDependency
+import tech.nmhillusion.n2mix.type.Stringeable
 import tech.nmhillusion.n2mix.util.StringUtil
 
 /**
@@ -11,7 +12,7 @@ import tech.nmhillusion.n2mix.util.StringUtil
  */
 abstract class DependencyEntity(
     val path: String,
-) {
+) : Stringeable() {
 
     abstract val name: String
 
