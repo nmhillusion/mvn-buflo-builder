@@ -18,10 +18,17 @@ class MavenCommand {
         get() = listOf(mvnCommand, "clean")
 
     val compileCommand: List<String>
-        get() = listOf(mvnCommand, "compile")
+        get() = listOf(mvnCommand, "compile", "-U")
 
     fun installCommand(ignoredTest: Boolean = true): List<String> =
-        if (ignoredTest) listOf(mvnCommand, "install", "-Dmaven.test.skip=true") else listOf(mvnCommand, "install")
+        if (ignoredTest)
+            listOf(mvnCommand, "install", "-U", "-Dmaven.test.skip=true")
+        else
+            listOf(
+                mvnCommand,
+                "install",
+                "-U"
+            )
 
     fun installJarLocalCommand(dependency_: LocalDependencyEntity): List<String> {
         return listOf(
