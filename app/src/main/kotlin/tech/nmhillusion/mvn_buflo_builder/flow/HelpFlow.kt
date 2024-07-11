@@ -1,5 +1,6 @@
 package tech.nmhillusion.mvn_buflo_builder.flow
 
+import tech.nmhillusion.mvn_buflo_builder.builder.BannerBuilder
 import tech.nmhillusion.n2mix.model.cli.ParameterModel
 
 /**
@@ -19,12 +20,10 @@ class HelpFlow : BaseFlow() {
     }
 
     override fun doExec(parameters: List<ParameterModel>) {
+        println(BannerBuilder().appBanner)
+
         println(
-            """
-                ---------------------------
-                MVN Buflo Builder
-                ---------------------------
-                
+            """                
                 Usage: ./app -c <path/to/config/file.yml>
                 or ./app --configPath <path/to/config/file.yml>
                 or ./app <path/to/config/file.yml>

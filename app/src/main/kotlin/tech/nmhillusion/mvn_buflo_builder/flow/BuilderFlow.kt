@@ -1,5 +1,6 @@
 package tech.nmhillusion.mvn_buflo_builder.flow
 
+import tech.nmhillusion.mvn_buflo_builder.builder.BannerBuilder
 import tech.nmhillusion.mvn_buflo_builder.builder.FolderBuilder
 import tech.nmhillusion.mvn_buflo_builder.exception.UnsupportedDependencyException
 import tech.nmhillusion.mvn_buflo_builder.flow.dependency_flow.GitDependencyBuilderFlow
@@ -28,8 +29,7 @@ class BuilderFlow : BaseFlow() {
     private lateinit var localBuilderConfig: LocalBuilderConfig
 
     override fun preExec(parameters: List<ParameterModel>) {
-        println(name)
-        println("---------------------")
+        println(BannerBuilder().appBanner)
 
         require(1 >= parameters.size) { "Invalid parameters: $parameters. Only one parameter is allowed for help." }
 
@@ -45,11 +45,6 @@ class BuilderFlow : BaseFlow() {
             throw IllegalArgumentException("Invalid configPath: $configPath")
         }
     }
-
-    val name: String
-        get() {
-            return "MVN Buflo Builder"
-        }
 
 
     private fun <T> getConfig(configKey: String, class2Cast: Class<T>): T {
@@ -122,6 +117,8 @@ class BuilderFlow : BaseFlow() {
         }
 
         /// Mark: POST EXEC
+        println(BannerBuilder().appBanner)
+
         println("[DEPENDENCY INSTALL RESULT]")
         installResult.forEach {
             println(
