@@ -18,6 +18,8 @@ class CommandRunner(private val command: List<String>, private val workingDirect
             builder.directory(this.workingDirectory)
         }
 
+        LogHelper.getLogger(this).info("command: ${this.command}; workingDirectory: ${this.workingDirectory}")
+
         val process: Process = builder.start()
 
 

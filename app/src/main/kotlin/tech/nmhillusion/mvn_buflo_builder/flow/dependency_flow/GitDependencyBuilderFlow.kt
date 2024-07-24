@@ -31,6 +31,8 @@ class GitDependencyBuilderFlow : DependencyBuilderFlow<GitDependencyEntity> {
         LogHelper.getLogger(this).info("cloneExitCode: $cloneExitCode")
 
         if (dependency_.isNeedCheckout) {
+            val fetchTagsExec = gitCommandRunner.fetchTagsExec()
+            LogHelper.getLogger(this).info("fetchTagsExec: $fetchTagsExec")
             val checkoutExitCode = gitCommandRunner.checkoutExec()
             LogHelper.getLogger(this).info("checkoutExitCode: $checkoutExitCode")
         }

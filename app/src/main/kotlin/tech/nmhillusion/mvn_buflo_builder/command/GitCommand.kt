@@ -3,6 +3,7 @@ package tech.nmhillusion.mvn_buflo_builder.command
 import tech.nmhillusion.mvn_buflo_builder.model.AccessTokenConfig
 import tech.nmhillusion.mvn_buflo_builder.model.dependency.GitDependencyEntity
 import tech.nmhillusion.n2mix.type.ChainList
+import tech.nmhillusion.n2mix.util.StringUtil
 import tech.nmhillusion.n2mix.validator.StringValidator
 import java.nio.file.Path
 
@@ -13,6 +14,10 @@ import java.nio.file.Path
  */
 class GitCommand {
     private val gitCommand = "git"
+
+    val fetchAll = listOf(gitCommand, "fetch", "--all")
+
+    val fetchTags = listOf(gitCommand, "fetch", "--tags")
 
     val versionCommand: List<String>
         get() = listOf(gitCommand, "-v")
@@ -46,6 +51,12 @@ class GitCommand {
         }
 
         return command
+            .map {
+                StringUtil.trimWithNull(it)
+            }
+            .filter {
+                !StringValidator.isBlank(it)
+            }
     }
 
 
@@ -68,8 +79,12 @@ class GitCommand {
                 )
         }
 
+        if (!dependencyEntity.isNeedCheckout) {
+            command
+                .chainAdd("--single-branch")
+        }
+
         command
-            .chainAdd("--single-branch")
             .chainAdd(
                 dependencyEntity.getUrl(accessTokenConfig)
             )

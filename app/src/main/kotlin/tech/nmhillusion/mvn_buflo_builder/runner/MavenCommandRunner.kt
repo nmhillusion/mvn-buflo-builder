@@ -13,17 +13,16 @@ import java.nio.file.Path
  * created date: 2024-06-03
  */
 class MavenCommandRunner(
-    val dependencyEntity: DependencyEntity,
+    private val dependencyEntity: DependencyEntity,
     workingFolder: String?
 ) {
 
     private val mavenCommand = MavenCommand()
-    private val localRepoPath = if (dependencyEntity is GitDependencyEntity)
-        Path.of(workingFolder ?: "", dependencyEntity.name, dependencyEntity.rootPath)
-    else if (dependencyEntity is LocalDependencyEntity)
-        Path.of(dependencyEntity.path).parent
-    else
-        Path.of(workingFolder ?: "")
+    private val localRepoPath = when (dependencyEntity) {
+        is GitDependencyEntity -> Path.of(workingFolder ?: "", dependencyEntity.name, dependencyEntity.rootPath)
+        is LocalDependencyEntity -> Path.of(dependencyEntity.path).parent
+        else -> Path.of(workingFolder ?: "")
+    }
 
     fun cleanExec(): Int {
         val commandRunner = CommandRunner(

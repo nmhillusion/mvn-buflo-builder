@@ -8,6 +8,7 @@ config:
 dependencies:
   - path: https://github.com/nmhillusion/neon-di.git
     rootPath: .
+    tag: 2023.3.19
 
   - path: "C:\\Users\\nmhil\\OneDrive\\Desktop\\tmp\\pi-logger-2023.3.1.jar"
     groupId: tech.nmhillusion
